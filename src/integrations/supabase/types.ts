@@ -14,7 +14,402 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          ai_diagnosis: string | null
+          appointment_date: string
+          appointment_id: string
+          created_at: string | null
+          doctor_id: string
+          initial_symptoms: string | null
+          patient_id: string
+          slot_id: string
+          status: string | null
+        }
+        Insert: {
+          ai_diagnosis?: string | null
+          appointment_date: string
+          appointment_id?: string
+          created_at?: string | null
+          doctor_id: string
+          initial_symptoms?: string | null
+          patient_id: string
+          slot_id: string
+          status?: string | null
+        }
+        Update: {
+          ai_diagnosis?: string | null
+          appointment_date?: string
+          appointment_id?: string
+          created_at?: string | null
+          doctor_id?: string
+          initial_symptoms?: string | null
+          patient_id?: string
+          slot_id?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["doctor_id"]
+          },
+          {
+            foreignKeyName: "appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["patient_id"]
+          },
+          {
+            foreignKeyName: "appointments_slot_id_fkey"
+            columns: ["slot_id"]
+            isOneToOne: false
+            referencedRelation: "time_slots"
+            referencedColumns: ["slot_id"]
+          },
+        ]
+      }
+      departments: {
+        Row: {
+          created_at: string | null
+          dept_id: string
+          dept_name: string
+          description: string | null
+          location: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          dept_id?: string
+          dept_name: string
+          description?: string | null
+          location?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          dept_id?: string
+          dept_name?: string
+          description?: string | null
+          location?: string | null
+        }
+        Relationships: []
+      }
+      disease_symptoms: {
+        Row: {
+          disease_id: string
+          symptom_id: string
+        }
+        Insert: {
+          disease_id: string
+          symptom_id: string
+        }
+        Update: {
+          disease_id?: string
+          symptom_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disease_symptoms_disease_id_fkey"
+            columns: ["disease_id"]
+            isOneToOne: false
+            referencedRelation: "diseases"
+            referencedColumns: ["disease_id"]
+          },
+          {
+            foreignKeyName: "disease_symptoms_symptom_id_fkey"
+            columns: ["symptom_id"]
+            isOneToOne: false
+            referencedRelation: "symptoms"
+            referencedColumns: ["symptom_id"]
+          },
+        ]
+      }
+      diseases: {
+        Row: {
+          created_at: string | null
+          dept_id: string
+          description: string | null
+          disease_id: string
+          disease_name: string
+        }
+        Insert: {
+          created_at?: string | null
+          dept_id: string
+          description?: string | null
+          disease_id?: string
+          disease_name: string
+        }
+        Update: {
+          created_at?: string | null
+          dept_id?: string
+          description?: string | null
+          disease_id?: string
+          disease_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "diseases_dept_id_fkey"
+            columns: ["dept_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["dept_id"]
+          },
+        ]
+      }
+      doctor_specialties: {
+        Row: {
+          doctor_id: string
+          specialty_id: string
+        }
+        Insert: {
+          doctor_id: string
+          specialty_id: string
+        }
+        Update: {
+          doctor_id?: string
+          specialty_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doctor_specialties_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["doctor_id"]
+          },
+          {
+            foreignKeyName: "doctor_specialties_specialty_id_fkey"
+            columns: ["specialty_id"]
+            isOneToOne: false
+            referencedRelation: "specialties"
+            referencedColumns: ["specialty_id"]
+          },
+        ]
+      }
+      doctors: {
+        Row: {
+          available: boolean | null
+          created_at: string | null
+          degree: string | null
+          dept_id: string
+          doctor_id: string
+          experience_years: number | null
+          user_id: string
+        }
+        Insert: {
+          available?: boolean | null
+          created_at?: string | null
+          degree?: string | null
+          dept_id: string
+          doctor_id?: string
+          experience_years?: number | null
+          user_id: string
+        }
+        Update: {
+          available?: boolean | null
+          created_at?: string | null
+          degree?: string | null
+          dept_id?: string
+          doctor_id?: string
+          experience_years?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doctors_dept_id_fkey"
+            columns: ["dept_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["dept_id"]
+          },
+          {
+            foreignKeyName: "doctors_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      medical_records: {
+        Row: {
+          appointment_id: string
+          created_at: string | null
+          diagnosis: string | null
+          note: string | null
+          prescription: string | null
+          record_id: string
+        }
+        Insert: {
+          appointment_id: string
+          created_at?: string | null
+          diagnosis?: string | null
+          note?: string | null
+          prescription?: string | null
+          record_id?: string
+        }
+        Update: {
+          appointment_id?: string
+          created_at?: string | null
+          diagnosis?: string | null
+          note?: string | null
+          prescription?: string | null
+          record_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "medical_records_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["appointment_id"]
+          },
+        ]
+      }
+      patients: {
+        Row: {
+          address: string | null
+          created_at: string | null
+          dob: string | null
+          gender: string | null
+          medical_history: string | null
+          patient_id: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string | null
+          dob?: string | null
+          gender?: string | null
+          medical_history?: string | null
+          patient_id?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string | null
+          dob?: string | null
+          gender?: string | null
+          medical_history?: string | null
+          patient_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patients_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      specialties: {
+        Row: {
+          created_at: string | null
+          dept_id: string
+          description: string | null
+          specialty_id: string
+          specialty_name: string
+        }
+        Insert: {
+          created_at?: string | null
+          dept_id: string
+          description?: string | null
+          specialty_id?: string
+          specialty_name: string
+        }
+        Update: {
+          created_at?: string | null
+          dept_id?: string
+          description?: string | null
+          specialty_id?: string
+          specialty_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "specialties_dept_id_fkey"
+            columns: ["dept_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["dept_id"]
+          },
+        ]
+      }
+      symptoms: {
+        Row: {
+          created_at: string | null
+          symptom_id: string
+          symptom_name: string
+        }
+        Insert: {
+          created_at?: string | null
+          symptom_id?: string
+          symptom_name: string
+        }
+        Update: {
+          created_at?: string | null
+          symptom_id?: string
+          symptom_name?: string
+        }
+        Relationships: []
+      }
+      time_slots: {
+        Row: {
+          created_at: string | null
+          end_time: string
+          slot_id: string
+          slot_name: string | null
+          start_time: string
+        }
+        Insert: {
+          created_at?: string | null
+          end_time: string
+          slot_id?: string
+          slot_name?: string | null
+          start_time: string
+        }
+        Update: {
+          created_at?: string | null
+          end_time?: string
+          slot_id?: string
+          slot_name?: string | null
+          start_time?: string
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          cccd: string
+          created_at: string | null
+          email: string
+          full_name: string
+          phone: string | null
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          cccd: string
+          created_at?: string | null
+          email: string
+          full_name: string
+          phone?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          cccd?: string
+          created_at?: string | null
+          email?: string
+          full_name?: string
+          phone?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +418,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role: "patient" | "doctor" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +545,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["patient", "doctor", "admin"],
+    },
   },
 } as const
