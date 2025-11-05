@@ -19,11 +19,14 @@ const Navbar = () => {
             <Link to="/symptoms" className="text-foreground/80 hover:text-foreground transition-colors">
               Symptom Checker
             </Link>
+            <Link to="/doctors" className="text-foreground/80 hover:text-foreground transition-colors">
+              Find Doctors
+            </Link>
             <Link to="/departments" className="text-foreground/80 hover:text-foreground transition-colors">
               Departments
             </Link>
             <Button asChild>
-              <Link to="/auth">Sign In</Link>
+              <Link to="/symptoms">Book Now</Link>
             </Button>
           </div>
 
@@ -40,11 +43,14 @@ const Navbar = () => {
             <Link to="/symptoms" className="block py-2 text-foreground/80 hover:text-foreground transition-colors">
               Symptom Checker
             </Link>
+            <Link to="/doctors" className="block py-2 text-foreground/80 hover:text-foreground transition-colors">
+              Find Doctors
+            </Link>
             <Link to="/departments" className="block py-2 text-foreground/80 hover:text-foreground transition-colors">
               Departments
             </Link>
             <Button asChild className="w-full">
-              <Link to="/auth">Sign In</Link>
+              <Link to="/symptoms">Book Now</Link>
             </Button>
           </div>
         )}

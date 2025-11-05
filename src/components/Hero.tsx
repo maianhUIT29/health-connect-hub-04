@@ -22,9 +22,9 @@ const Hero = () => {
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link to="/auth">
+              <Link to="/doctors">
                 <Button size="lg" variant="outline" className="bg-primary-foreground/10 backdrop-blur-sm border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20">
-                  Sign In
+                  Browse Doctors
                 </Button>
               </Link>
             </div>
